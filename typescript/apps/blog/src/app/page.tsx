@@ -35,17 +35,6 @@ function Box(props: ThreeElements["mesh"]) {
 export default function Home() {
   return (
     <YStack f={1} px="$4">
-      {/* <YStack bg="red" tag="header">
-        <XStack tag="nav">
-          <H1>bensch.ac</H1>
-          <Spacer flex />
-          <Link href="/about">about</Link>
-          <Link href="/blog">blog</Link>
-          <Link href="/uses">uses</Link>
-          <SwitchThemeButton />
-        </XStack>
-      </YStack>
-      <SwitchThemeButton /> */}
       <Canvas
         style={{
           // width: 600,
@@ -64,11 +53,6 @@ export default function Home() {
           <Box position={[0, 0, 0]} />
         </Suspense>
       </Canvas>
-      <Script
-        async
-        defer
-        src="https://www.recurse-scout.com/loader.js?t=52b00143745a218ef86c10cc5dc24f55"
-      />
     </YStack>
   );
 }

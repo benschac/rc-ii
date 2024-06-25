@@ -2,6 +2,8 @@ import type { Post } from "@/interfaces/post";
 import fs from "node:fs";
 import matter from "gray-matter";
 import { join } from "node:path";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 
 const postsDirectory = join(`${process.cwd()}`, "_posts");
 
