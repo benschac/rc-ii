@@ -5,19 +5,20 @@ import { Text } from "tamagui";
 
 export const Link = ({
   href,
-  replace,
   ...props
-}: LinkProps & { children: React.ReactNode }) => {
+}: {
+  href: string;
+  children: React.ReactNode;
+}) => {
   const router = useRouter();
-  const handlePress = (e: GestureReponderEvent) => {
-    e.preventDefault();
-    router.push(href.toString());
+  const handlePress = (event: GestureReponderEvent) => {
+    event.preventDefault();
+    router.push(href);
   };
 
   return (
     <Text
       tag="a"
-      href={href.toString()}
       onPress={handlePress}
       cursor="pointer"
       color="inherit"

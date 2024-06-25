@@ -1,5 +1,7 @@
 "use client";
 
+import "@tamagui/font-inter/css/400.css";
+import "@tamagui/font-inter/css/700.css";
 import "@tamagui/core/reset.css";
 import "@tamagui/polyfill-dev";
 
@@ -19,7 +21,6 @@ export const NextTamaguiProvider = ({ children }: { children: ReactNode }) => {
 
   useServerInsertedHTML(() => {
     // @ts-ignore
-
     const rnwStyle = StyleSheet.getSheet();
 
     return (

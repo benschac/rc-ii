@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NextTamaguiProvider } from "../providers/TamaguiProvider";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Layout } from "./_components/Thing";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NextTamaguiProvider>{children}</NextTamaguiProvider>
+        <NextTamaguiProvider>
+          <Layout>{children}</Layout>
+        </NextTamaguiProvider>
       </body>
     </html>
   );

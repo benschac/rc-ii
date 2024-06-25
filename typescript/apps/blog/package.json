@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/fiber": "^8.16.8",
     "@tamagui/config": "^1.101.3",
     "@tamagui/core": "^1.101.3",
     "@tamagui/next-plugin": "^1.101.3",
     "@tamagui/next-theme": "^1.101.3",
+    "@types/three": "^0.165.0",
     "date-fns": "^3.6.0",
     "gray-matter": "^4.0.3",
     "next": "14.2.4",
@@ -20,7 +22,8 @@
     "react-dom": "^18",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "tamagui": "^1.101.3"
+    "tamagui": "^1.101.3",
+    "three": "^0.165.0"
   },
   "devDependencies": {
     "typescript": "^5",

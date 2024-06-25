@@ -39,6 +39,10 @@
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 }
+.rc-scout {
+  width: 32px !important;
+  height: 32px !important;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
