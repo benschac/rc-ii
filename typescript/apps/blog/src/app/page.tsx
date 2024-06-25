@@ -11,6 +11,8 @@ function Box(props: ThreeElements["mesh"]) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
+  // @ts-expect-error - `useFrame` is not typed
+  // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
   useFrame((state, delta) => (meshRef.current.rotation.x += delta));
   return (
     <mesh
