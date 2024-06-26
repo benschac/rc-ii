@@ -1,11 +1,9 @@
 "use client";
-import { H1, Spacer, XStack, YStack, Text } from "tamagui";
-import { SwitchThemeButton } from "./_components/SwitchThemeButton";
-import { Link } from "./_components/Link";
+import { H3, Theme, YStack } from "tamagui";
 import type * as THREE from "three";
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame, type ThreeElements } from "@react-three/fiber";
-import Script from "next/script";
+import { Logo } from "./_components/Logo";
 
 function Box(props: ThreeElements["mesh"]) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -23,10 +21,6 @@ function Box(props: ThreeElements["mesh"]) {
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}
     >
-      {/* <group
-        scale={hovered ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-        rotation={[0, 0, Math.PI / 4]}
-      > */}
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color="green" />
       {/* </group> */}
@@ -39,8 +33,6 @@ export default function Home() {
     <YStack f={1} px="$4">
       <Canvas
         style={{
-          // width: 600,
-          // height: 600,
           zIndex: -1,
           position: "fixed",
           top: 0,

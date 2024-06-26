@@ -5,10 +5,12 @@ import { Text } from "tamagui";
 
 export const Link = ({
   href,
+  tag = "a",
   ...props
 }: {
   href: string;
   children: React.ReactNode;
+  tag?: string;
 }) => {
   const router = useRouter();
   const handlePress = (event: GestureReponderEvent) => {
@@ -18,10 +20,11 @@ export const Link = ({
 
   return (
     <Text
-      tag="a"
+      background="$background"
+      tag={tag}
       onPress={handlePress}
       cursor="pointer"
-      color="inherit"
+      color="$green"
       // @ts-expect-error
       lineHeight="inherit"
       {...props}
