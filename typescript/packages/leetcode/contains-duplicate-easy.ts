@@ -6,7 +6,7 @@
 function containsDuplicate(nums: number[]): boolean {
   return nums.length !== new Set(nums).size;
 }
-
+// https://leetcode.com/problems/maximum-subarray/submissions/1301279550/
 function maxSubArray(nums: number[]): number {
   if (nums.length === 1) {
     return nums[0];
