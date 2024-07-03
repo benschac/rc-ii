@@ -1,6 +1,15 @@
 import '@tamagui/core/reset.css'
+import { rules } from './rules'
 
-import { Button, TamaguiProvider, XStack, YStack, getTokens } from 'tamagui'
+import {
+  Button,
+  Spacer,
+  TamaguiProvider,
+  XStack,
+  YStack,
+  getTokens,
+  Text,
+} from 'tamagui'
 import { LinearGradient } from 'tamagui/linear-gradient'
 import { Square } from 'tamagui'
 
@@ -22,7 +31,6 @@ export const Root = () => {
 /*
 1. Step 1: create a grid of cells
  */
-
 function Cell({
   x,
   y,
@@ -37,20 +45,14 @@ function Cell({
       borderColor="blue"
       borderWidth={0.5}
       bg={value ? 'red' : 'blue'}
-      size="$4"
+      size="$6"
     >
-      {/* {x}, {y} */}
-      {value ? 't' : 'f'}
+      <Text>
+        x:{x}, y:{y}
+      </Text>
     </Square>
   )
 }
-// Array.from({ length: size })
-//   .map((_, idx) => idx)
-//   .map(() =>
-//     Array.from({ length: size }).map(
-//       (_, idx) => !!Math.round(Math.random())
-//     )
-//   )
 
 /**
  * Step 2: create grid / Board
@@ -62,34 +64,45 @@ function Board({
 }: {
   size: number
 }) {
+  const twobytwoBoard = [
+    [false, false],
+    [false, true],
+  ]
+  // https://conwaylife.com/wiki/Blinker
+  // const threeByThreeBoard = [
+  //   [false, true, false],
+  //   [false, true, false],
+  //   [false, true, false],
+  // ]
+  const beaconBoard = [
+    [true, true, false, false],
+    [true, true, false, false],
+    [false, false, true, true],
+    [false, false, true, true],
+  ]
+  const initialBoard = beaconBoard
+
   const token = getTokens().size.$1.val
+  const [board, setBoard] = React.useState([initialBoard])
   const [generation, setGeneration] = React.useState(0)
-  const [board, setBoard] = React.useState([
-    [false, false, false, false],
-    [true, true, true, false],
-    [false, false, false, false],
-    [false, false, false, false],
-  ])
-  const nextGeneration = () => setGeneration((prev) => prev + 1)
-  const previousGeneration = () => setGeneration((prev) => prev - 1)
+
   const nextBoard = React.useMemo(() => {
-    const prevBoard = [...board]
-    return board.map((row, rowIdx) => {
-      return row.map((_, columnIdx) => {
-        return rules({ x: rowIdx, y: columnIdx, board: prevBoard })
-      })
-    })
+    return rules(board[board.length - 1])
   }, [board])
+
   const handleNext = () => {
-    setBoard(nextBoard)
+    setBoard(board.concat([nextBoard]))
+    setGeneration(generation + 1)
+  }
+  const handlePrevious = () => {
+    setBoard(board.slice(0, -1))
+    setGeneration(generation - 1)
   }
 
-  console.log(board)
   return (
     <>
-      <Button onPress={handleNext}>Click</Button>
       <YStack w={size * token}>
-        {board.map((row, rowIdx) => {
+        {board[board.length - 1].map((row, rowIdx) => {
           return (
             <XStack
               key={`row-${
@@ -105,8 +118,8 @@ function Board({
                       rowIdx
                     }`}
                     value={value}
-                    x={rowIdx}
-                    y={columnIdx}
+                    x={columnIdx}
+                    y={rowIdx}
                   />
                 )
               })}
@@ -114,80 +127,11 @@ function Board({
           )
         })}
       </YStack>
+      <XStack f={1}>
+        <Button onPress={handlePrevious}>previous</Button>
+        <Spacer />
+        <Button onPress={handleNext}>Next</Button>
+      </XStack>
     </>
   )
-}
-
-/**
- * Step 3: Add rules
- * https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
- *
- *
- * Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-  Any live cell with two or three live neighbours lives on to the next generation.
-  Any live cell with more than three live neighbours dies, as if by overpopulation.
-  Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
- */
-function rules({
-  x,
-  y,
-  board,
-}: {
-  x: number
-  y: number
-  board: boolean[][]
-}): boolean {
-  const neighbours = [
-    // [x=1, y] right
-    [1, 0],
-    // [x=1, y=1] right corner
-    [1, 1],
-    // [x=0, y=1] bottom bottom
-    [0, 1],
-    // [x=-1, y=-1] bottom left
-    [-1, -1],
-    // [x=-1, y=0] left
-    [-1, 0],
-    // [x=-1, y=-1] top left
-    [-1, -1],
-    // [x=0, y=-1] top top
-    [0, -1],
-    // [x=1, y=-1] top right
-    [1, -1],
-  ]
-  const cell: boolean = board[y][x]
-  const liveNeighbours = neighbours.reduce((prev, [x, y]) => {
-    const neighbour = board?.[x]?.[y] ?? undefined
-    console.log(neighbour)
-    if (neighbour) {
-      return prev + 1
-    }
-    return prev
-  }, 0)
-
-  switch (cell) {
-    case true: {
-      console.log('live', { x, y }, liveNeighbours)
-      if (liveNeighbours < 2) {
-        //  Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-        return false
-      }
-      if (liveNeighbours === 2 || liveNeighbours === 3) {
-        // Any live cell with two or three live neighbours lives on to the next generation.
-        return true
-      }
-      if (liveNeighbours > 3) {
-        // Any live cell with more than three live neighbours dies, as if by overpopulation.
-        return false
-      }
-      break
-    }
-    case false: {
-      if (liveNeighbours === 3) {
-        // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-        return true
-      }
-    }
-  }
-  return false
 }
