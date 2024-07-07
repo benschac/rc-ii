@@ -2349,6 +2349,7 @@ __metadata:
     "@my/config": "npm:0.0.1"
     "@tamagui/build": "npm:^1.101.7"
     "@tamagui/toast": "npm:^1.101.7"
+    prettier: "npm:^3.3.2"
     tamagui: "npm:^1.101.7"
   languageName: unknown
   linkType: soft
