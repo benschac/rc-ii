@@ -35,7 +35,6 @@ export function HomeScreen({ pagesMode = false }: { pagesMode?: boolean }) {
       >
         {Platform.OS === 'web' && (
           <>
-            <SwitchRouterButton pagesMode={pagesMode} />
             <SwitchThemeButton />
           </>
         )}

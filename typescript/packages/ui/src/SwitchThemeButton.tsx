@@ -13,6 +13,8 @@ export const SwitchThemeButton = () => {
   }, [themeSetting.current, themeSetting.resolvedTheme])
 
   return (
-    <Button onPress={themeSetting.toggle}>Change theme: {clientTheme}</Button>
+    <Button $platform-web={{
+      display: 'none'
+    }} onPress={themeSetting.toggle}>Change theme: {clientTheme}</Button>
   )
 }
