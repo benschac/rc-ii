@@ -5702,6 +5702,7 @@ __metadata:
     burnt: "npm:^0.12.2"
     expo-constants: "npm:~16.0.2"
     expo-linking: "npm:~6.3.1"
+    prettier: "npm:^3.3.2"
     react-native-safe-area-context: "npm:4.10.4"
     solito: "npm:^4.2.2"
   languageName: unknown
