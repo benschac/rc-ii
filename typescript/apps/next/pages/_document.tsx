@@ -11,7 +11,9 @@ import NextDocument, {
 import { config } from '@my/ui'
 
 export default class Document extends NextDocument {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     AppRegistry.registerComponent('Main', () => Main)
     const page = await ctx.renderPage()
 
@@ -28,7 +30,8 @@ export default class Document extends NextDocument {
         key="tamagui-css"
         dangerouslySetInnerHTML={{
           __html: config.getCSS({
-            exclude: process.env.NODE_ENV === 'development' ? null : 'design-system',
+            exclude:
+              process.env.NODE_ENV === 'development' ? null : 'design-system',
           }),
         }}
       />,
