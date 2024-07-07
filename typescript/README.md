@@ -1,81 +1,104 @@
-# Turborepo starter
-
-This is an official starter Turborepo.
-
-## Using this example
-
-Run the following command:
+# Tamagui + Solito + Next + Expo Monorepo
 
 ```sh
-npx create-turbo@latest
+npm create tamagui
 ```
 
-## What's inside?
+## 🔦 About
 
-This Turborepo includes the following packages/apps:
+This monorepo is a starter for an Expo + Next.js + Tamagui + Solito app.
 
-### Apps and Packages
+Many thanks to [@FernandoTheRojo](https://twitter.com/fernandotherojo) for the Solito starter monorepo which this was forked from. Check out his [talk about using expo + next together at Next.js Conf 2021](https://www.youtube.com/watch?v=0lnbdRweJtA).
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## 📦 Included packages
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- [Tamagui](https://tamagui.dev) 🪄
+- [solito](https://solito.dev) for cross-platform navigation
+- Expo SDK
+- Next.js
+- Expo Router
 
-### Utilities
+## 🗂 Folder layout
 
-This Turborepo has some additional tools already setup for you:
+The main apps are:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- `expo` (native)
+- `next` (web)
 
-### Build
+- `packages` shared packages across apps
+  - `ui` includes your custom UI kit that will be optimized by Tamagui
+  - `app` you'll be importing most files from `app/`
+    - `features` (don't use a `screens` folder. organize by feature.)
+    - `provider` (all the providers that wrap the app, and some no-ops for Web.)
 
-To build all apps and packages, run the following command:
+You can add other folders inside of `packages/` if you know what you're doing and have a good reason to.
 
+> [!TIP]
+> Switching from `app` to `pages` router:
+>
+> - remove `app` folder from `apps/next`
+> - move `index.tsx` from `pages-example` to `pages` folder
+> - rename `pages-example-user` to `user` and be sure to update `linkTarget` in `screen.tsx` to `user` as well
+> - delete `SwitchRouterButton.tsx` component and remove it from `screen.tsx` and `packages/ui/src/index.tsx`
+> - search for `pagesMode` keyword and remove it
+
+## 🏁 Start the app
+
+- Install dependencies: `yarn`
+
+- Next.js local dev: `yarn web`
+
+To run with optimizer on in dev mode (just for testing, it's faster to leave it off): `yarn web:extract`. To build for production `yarn web:prod`.
+
+To see debug output to verify the compiler, add `// debug` as a comment to the top of any file.
+
+- Expo local dev: `yarn native`
+
+## UI Kit
+
+Note we're following the [design systems guide](https://tamagui.dev/docs/guides/design-systems) and creating our own package for components.
+
+See `packages/ui` named `@my/ui` for how this works.
+
+## 🆕 Add new dependencies
+
+### Pure JS dependencies
+
+If you're installing a JavaScript-only dependency that will be used across platforms, install it in `packages/app`:
+
+```sh
+cd packages/app
+yarn add date-fns
+cd ../..
+yarn
 ```
-cd my-turborepo
-pnpm build
+
+### Native dependencies
+
+If you're installing a library with any native code, you must install it in `expo`:
+
+```sh
+cd apps/expo
+yarn add react-native-reanimated
+cd ..
+yarn
 ```
 
-### Develop
+## Update new dependencies
 
-To develop all apps and packages, run the following command:
+### Pure JS dependencies
 
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```sh
+yarn upgrade-interactive
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+You can also install the native library inside of `packages/app` if you want to get autoimport for that package inside of the `app` folder. However, you need to be careful and install the _exact_ same version in both packages. If the versions mismatch at all, you'll potentially get terrible bugs. This is a classic monorepo issue. I use `lerna-update-wizard` to help with this (you don't need to use Lerna to use that lib).
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+You may potentially want to have the native module transpiled for the next app. If you get error messages with `Cannot use import statement outside a module`, you may need to use `transpilePackages` in your `next.config.js` and add the module to the array there.
 
-```
-npx turbo link
-```
+### Deploying to Vercel
 
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- Root: `apps/next`
+- Install command to be `yarn set version stable && yarn install`
+- Build command: leave default setting
+- Output dir: leave default setting

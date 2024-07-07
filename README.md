@@ -81,3 +81,8 @@ use p5.js to make ascii art of atul's pfp. characters are generated using [atul'
   - get atul's image and reduce quality / size to 100 x 100 pixels.
   - render every commit character in the commit.csv file as a string for each pixel in the image.
   - take the average of each pixel rgb value and map it to a color. either white or blue.
+
+
+
+
+Write an end state (many different possibilities) that I want from rc
