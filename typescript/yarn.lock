@@ -2349,6 +2349,7 @@ __metadata:
     "@my/config": "npm:0.0.1"
     "@tamagui/build": "npm:^1.101.7"
     "@tamagui/toast": "npm:^1.101.7"
+    eslint: "npm:^9.3.0"
     prettier: "npm:^3.3.2"
     tamagui: "npm:^1.101.7"
   languageName: unknown
@@ -5701,6 +5702,7 @@ __metadata:
     "@types/react": "npm:^18.3.3"
     "@types/react-native": "npm:^0.73.0"
     burnt: "npm:^0.12.2"
+    eslint: "npm:^9.3.0"
     expo-constants: "npm:~16.0.2"
     expo-linking: "npm:~6.3.1"
     prettier: "npm:^3.3.2"

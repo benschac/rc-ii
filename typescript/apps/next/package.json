@@ -8,7 +8,7 @@
     "start": "next start",
     "serve": "NODE_ENV=production next start --port 8151",
     "lint": "next lint",
-    "format": "prettier --write '**/*.{ts,tsx}' '!**/node_modules/**' '!**/*.d.ts' && eslint --fix '**/*.{ts,tsx}' '!**/node_modules/**' '!**/*.d.ts'"
+    "format": "prettier --write '**/*.{ts,tsx}' '!**/node_modules/**' '!**/*.d.ts'"
   },
   "dependencies": {
     "@tamagui/config": "^1.101.7",
