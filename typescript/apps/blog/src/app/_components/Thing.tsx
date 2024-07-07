@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import {
   Spacer,
   Text,
@@ -8,28 +8,28 @@ import {
   View,
   Theme,
   type ThemeName,
-} from "tamagui";
-import { SwitchThemeButton } from "./SwitchThemeButton";
-import { Link } from "./Link";
-import Script from "next/script";
-import React from "react";
+} from 'tamagui'
+import { SwitchThemeButton } from './SwitchThemeButton'
+import { Link } from './Link'
+import Script from 'next/script'
+import React from 'react'
 
 const Header = () => {
-  const [headerHover, setHeaderHover] = React.useState(false);
-  const randomNumber0to4 = () => Math.floor(Math.random() * 5);
+  const [headerHover, setHeaderHover] = React.useState(false)
+  const randomNumber0to4 = () => Math.floor(Math.random() * 5)
   const altThemeNames = [
-    "blue_alt1",
-    "yellow_alt2",
-    "green_alt1",
-    "purple_alt2",
-    "red_alt1",
-  ] as ThemeName[];
+    'blue_alt1',
+    'yellow_alt2',
+    'green_alt1',
+    'purple_alt2',
+    'red_alt1',
+  ] as ThemeName[]
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const orderOfThemes = React.useMemo(() => {
-    const themes = [...altThemeNames];
-    const theme = themes.splice(randomNumber0to4(), 1);
-    return [...theme, ...themes];
-  }, []);
+    const themes = [...altThemeNames]
+    const theme = themes.splice(randomNumber0to4(), 1)
+    return [...theme, ...themes]
+  }, [])
 
   return (
     <YStack tag="header">
@@ -115,36 +115,38 @@ const Header = () => {
         <SwitchThemeButton />
       </XStack>
     </YStack>
-  );
-};
+  )
+}
 
 const Footer = () => {
   return (
-    <YStack
-      bg="$accentBackground"
-      pos="absolute"
-      ai="center"
-      px="$4"
-      py="$4"
-      bottom={0}
-      left={0}
-      right={0}
-      tag="footer"
-    >
-      <Script
-        style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}
-        async
-        defer
-        src="https://www.recurse-scout.com/loader.js?t=52b00143745a218ef86c10cc5dc24f55"
-      />
-      <XStack f={1} ai="center">
-        <Text fow="100" fos="$3" textAlign="center">
-          © Benjamin {new Date().getFullYear()}
-        </Text>
-      </XStack>
-    </YStack>
-  );
-};
+    <Theme>
+      <YStack
+        bg="$accentBackground"
+        pos="absolute"
+        ai="center"
+        px="$4"
+        py="$4"
+        bottom={0}
+        left={0}
+        right={0}
+        tag="footer"
+      >
+        <Script
+          style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}
+          async
+          defer
+          src="https://www.recurse-scout.com/loader.js?t=52b00143745a218ef86c10cc5dc24f55"
+        />
+        <XStack f={1} ai="center">
+          <Text fow="100" fos="$3" textAlign="center">
+            © Benjamin {new Date().getFullYear()}
+          </Text>
+        </XStack>
+      </YStack>
+    </Theme>
+  )
+}
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -153,5 +155,5 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       {children}
       <Footer />
     </YStack>
-  );
-};
+  )
+}
